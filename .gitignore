@@ -1,0 +1,15 @@
+# Modules and settings
+/venv
+.env
+
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# User Stuff
+.idea/
+
+# Chache
+*/__pycache__
+*/__pycache__/*
+*.pyc

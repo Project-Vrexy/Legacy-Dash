@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Your servers</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/servers.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>Aeon</h1>
+            <h2>Your servers</h2>
+        </div>
+    </header>
+    <main>
+        <div class="servers">
+            {% if servers %}
+                {% for server in servers %}
+                    <a href="/dashboard/edit?server={{ server['id'] }}" class="server">
+                        <div class="img">
+                            <img src="{{ server['url'] }}" alt="{{ server['name'] }}" width="128" height="128"/>
+                        </div>
+                        <div class="data">
+                            <h2>{{ server['name'] }}</h2>
+                            <p>{{ server['id'] }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>You have no servers. 😢</p>
+            {% endif %}
+        </div>
+    </main>
+
+    {% if partial %}
+    <header>
+        <div>
+            <h2>You may invite Aeon to these servers</h2>
+        </div>
+    </header>
+    <main>
+        <div class="servers">
+            {% for server in partial %}
+                <a href="/dashboard/edit?server={{ server['id'] }}" class="server">
+                    <div class="img">
+                        <img src="{{ server['url'] }}" alt="{{ server['name'] }}" width="128" height="128"/>
+                    </div>
+                    <div class="data">
+                        <h2>{{ server['name'] }}</h2>
+                        <p>{{ server['id'] }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </main>
+    {% endif %}
+</body>
+
+</html>

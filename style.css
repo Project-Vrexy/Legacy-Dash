@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-areas:
+        "sidebar header header"
+        "sidebar config config"
+        "sidebar config config";
+}
+
+header {
+    grid-area: header;
+    background: #F7F5F5;
+}
+
+nav {
+    grid-area: sidebar;
+    background: #F0EEEE;
+}
+
+main {
+    grid-area: config;
+
+}
