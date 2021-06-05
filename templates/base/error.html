@@ -1,0 +1,17 @@
+{% extends './base/static.html' %}
+
+{% block servers_css %}nav-link{% endblock %}
+{% block edit_css %}nav-item dropdown{% endblock %}
+{% block edit_status %}nav-link dropdown-toggle disabled{% endblock %}
+
+
+{% block seo_title %}Aeon Dashboard | Error Occurred{% endblock %}
+
+{% block content %}
+<div class="px-4 pt-5 my-5">
+    <h1 class="display-4 fw-bold text-white">{% block title %}{% endblock %}</h1>
+    <div class="col-lg-6">
+        <p class="lead mb-4">{% block desc %}{% endblock %}</p>
+    </div>
+</div>
+{% endblock %}

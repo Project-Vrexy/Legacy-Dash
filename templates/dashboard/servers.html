@@ -1,0 +1,102 @@
+{% extends "./base/dynamic.html" %}
+
+{% block servers_css %}nav-link active{% endblock %}
+{% block edit_css %}nav-item dropdown{% endblock %}
+{% block edit_status %}nav-link dropdown-toggle disabled{% endblock %}
+
+{% block seo_title %}Aeon Dashboard | Select a Server{% endblock %}
+
+{% block content %}
+<div class="my-5">
+    <div class="overflow-hidden">
+        <div class="">
+            <img src="https://cdn.discordapp.com/avatars/{{ user['id'] }}/{{ user['avatar'] }}.gif?size=128"
+                class="img-fluid rounded-circle shadow-lg mb-4" alt="Avatar" loading="lazy">
+        </div>
+    </div>
+    <h1 class="display-4 fw-bold text-white">Hello, {{ user['username'] }}!</h1>
+    <div class="col-lg-6">
+        <p class="lead mb-4">You have admin permissions in {{ count[0] }} servers. {{ count[1] }} of them have Aeon.</p>
+    </div>
+</div>
+<hr />
+<div class="album py-5 bg-dark" id="start">
+    <h2>Servers You Can Edit</h2>
+    <br>
+    <div class="container" id="container1">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+
+            {% for server in servers %}
+            <div class="col">
+                <div class="card shadow-sm" style="background-color: rgba(0, 0, 0, 0.05);">
+                    {% if server['url'] %}
+                    <img src="{{ server['url'] }}" alt="server icon" class="bd-placeholder-img card-img-top"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                        preserveaspectratio="xMidYMid slice" focusable="false">
+                    {% else %}
+                    <img src="https://discord.com/assets/3437c10597c1526c3dbd98c737c2bcae.svg" alt="server icon"
+                        class="bd-placeholder-img card-img-top" xmlns="http://www.w3.org/2000/svg" role="img"
+                        aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" width="512"
+                        height="304" focusable="false">
+                    {% endif %}
+
+
+                    <div class="card-body">
+                        <p class="card-text">{{ server['name'] }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/dashboard/edit?server={{ server['id'] }}">
+                                    <button class="btn btn-success"><i class="bi bi-pencil"></i> Edit</button>
+                                </a>
+                            </div>
+                            <small class="not-muted-link" style="visibility: visible;">{{ server['id'] }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <h2>You can invite Aeon to these servers</h2>
+    <br>
+    <div class="container" id="container2">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+
+            {% for server in servers %}
+            <div class="col">
+                <div class="card shadow-sm" style="background-color: rgba(0, 0, 0, 0.05);">
+                    {% if server['url'] %}
+                    <img src="{{ server['url'] }}" alt="server icon" class="bd-placeholder-img card-img-top"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                        preserveaspectratio="xMidYMid slice" focusable="false">
+                    {% else %}
+                    <img src="https://discord.com/assets/3437c10597c1526c3dbd98c737c2bcae.svg" alt="server icon"
+                        class="bd-placeholder-img card-img-top" xmlns="http://www.w3.org/2000/svg" role="img"
+                        aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" width="512"
+                        height="304" focusable="false">
+                    {% endif %}
+
+
+                    <div class="card-body">
+                        <p class="card-text">{{ server['name'] }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="/dashboard/edit?server={{ server['id'] }}">
+                                    <button class="btn btn-success"><i class="bi bi-pencil"></i> Edit</button>
+                                </a>
+                            </div>
+                            <small class="not-muted-link" style="visibility: visible;">{{ server['id'] }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+    </div>
+</div>
+{% endblock %}

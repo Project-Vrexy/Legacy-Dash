@@ -1,0 +1,46 @@
+{% extends "base/static.html" %}
+
+{% block seo_title %}Aeon, the Discord bot{% endblock %}
+
+{% block servers_css %}nav-item{% endblock %}
+{% block edit_css %}nav-item dropdown active{% endblock %}
+{% block edit_status %}nav-link dropdown-toggle{% endblock %}
+
+{% block content %}
+<div class="px-4 pt-5 my-5">
+    <div class="overflow-hidden">
+        <div class="">
+            <img src="https://media.discordapp.net/attachments/713675042143076356/850425865078833212/unknown.png?width=130&height=128"
+                class="img-fluid mb-4" alt="Avatar" loading="lazy">
+        </div>
+    </div>
+    <h1 class="display-4 fw-bold text-white">Meet Aeon</h1>
+    <div class="col-lg-6">
+        <p class="lead mb-4">A multi-purpose bot that does stuff like memes, tags, reminders, and anti-swear filtering.
+        </p>
+        <div class="d-grid gap-2 d-sm-flex ">
+            <a href="https://discord.com/oauth2/authorize?client_id=636991807862997000&permissions=8&scope=bot">
+                <button type="button" class="btn btn-success text-secondary btn-lg px-4 gap-3">Invite the bot</button>
+            </a>
+            <a href="/dashboard">
+                <button type="button" class="btn btn-secondary text-success btn-lg px-4">Open Dashboard</button>
+            </a>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+        <img src="https://media.discordapp.net/attachments/713675042143076356/850706518768222208/unknown.png?width=513&height=676" class="d-block mx-lg-auto img-fluid shadow-lg rounded-20" alt="Bootstrap Themes" width="384" height="384" loading="lazy">
+    </div>
+    <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3 text-white">Tags</h1>
+        <p class="lead">Tags are... well, I didn't write the copy in time</p>
+        <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button type="button" class="btn btn-success btn-lg px-4 me-md-2">Primary</button>
+            <button type="button" class="btn btn-secondary text-success btn-lg px-4">Default</button>
+        </div> -->
+    </div>
+</div>
+<p class="text-center">No content has been prepared <b>yet</b>. 😳</p>
+{% endblock %}

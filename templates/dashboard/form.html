@@ -1,0 +1,77 @@
+{% extends "./base/dynamic.html" %}
+
+{% block servers_css %}nav-link{% endblock %}
+{% block edit_status %}nav-link active dropdown-toggle{% endblock %}
+
+{% block seo_title %}Aeon Dashboard | Edit Server{% endblock %}
+
+{% block content %}
+<div class="my-5">
+    <div class="overflow-hidden">
+        <div class="">
+            <img src="{{ currguild['url'] }}" class="img-fluid rounded-circle shadow-lg mb-4" alt="Avatar" loading="lazy" height="128" width="128">
+        </div>
+    </div>
+    <h5 class="text-uppercase not-muted-link">currently editing</h5>
+    <h1 class="display-4 fw-bold text-white lead">{{ currguild['name'] }}</h1>
+    <div class="col-lg-6">
+        <p class="mb-4 not-muted-link">{{ currguild['id'] }}</p>
+    </div>
+</div>
+
+<form method="post" action="#" class="form-group">
+    <h2 class="text-white" id="section-prefix">Prefix</h2>
+    <p>The word the bot will use to listen out for commands.<br />Add <b>{s}</b> at the end to add spaces.</p>
+
+    <input name="pfx" type="text" value="{{ 'a!' if not config[5] else config[5] }}" placeholder="{{ 'a!' if not config[5] else config[5] }}" class="form-control bg-dark text-white border border-success"/>
+
+    <br />
+    <p>Default Prefix: <b>a!</b></p>
+
+    <h3 class="text-white">Prefix Warn</h3>
+    <p>This will display a warning when a user attempts to use the default prefix.</p>
+    <div class="form-group form-check">
+        {% if pwc %}
+        <input type="checkbox" class="form-check-input" name="pfx-warn" id="check1" value="" checked>
+        {% else %}
+        <input type="checkbox" class="form-check-input" name="pfx-warn" value="" id="check1">
+        {% endif %}
+        <label class="form-check-label" for="check1">Prefix Warn</label>
+    </div>
+
+    <hr>
+    <h2 class="text-white" id="section-as">Anti-Swear Filter</h2>
+    <p>Aeon's Anti-Swear Filter helps protect your server from bad words.</p>
+    <div class="form-group form-check">
+        {% if atc %}
+        <input type="checkbox" class="form-check-input" name="as-toggle" value="" checked>
+        {% else %}
+        <input type="checkbox" class="form-check-input" name="as-toggle" value="">
+        {% endif %}
+        <label class="form-check-label">Use Anti Swear Filter</label>
+    </div>
+    {% if atc %}
+        <br>
+    <h3 class="text-white">Blocklist</h3>
+    <textarea name="as-words" placeholder="{{ 'Please add some words to block.' if not config[1] else config[1] }}" class="form-control bg-dark text-white border border-success"></textarea>
+    <br />
+    <p><b>Current Words</b></p>
+    <textarea readonly class="form-control text-white bg-dark border-dark">{{ 'You have no blocked words.' if not config[1] else config[1] }}</textarea>
+    <br>
+    <h3 class="text-white">Wildcard</h3>
+    <p>The wildcard removes messages that contain words <b>similar</b> to words in your blocklist.</p>
+    <div class="form-group form-check">
+        {% if awc %}
+        <input type="checkbox" class="form-check-input" name="as-wc" value="" checked>
+        {% else %}
+        <input type="checkbox" class="form-check-input" name="as-wc" value="">
+        {% endif %}
+        <label class="form-check-label">Use Wildcard</label>
+    </div>
+    {% endif %}
+
+    <hr>
+    <button class="btn btn-success text-white" type="submit"><i class="bi bi-save"></i> Save changes</button>
+<!--    <input type="submit" class="btn btn-success">-->
+</form>
+{% endblock %}
