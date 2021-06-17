@@ -9,6 +9,16 @@
 
     <title>{% block seo_title %}{% endblock %}</title>
 
+    <script>
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+
+        console.log("%c⚠ Warning", "color:yellow; font-size: 100px; background: black; font-weight: bold; font-family: sans-serif;")
+        console.log("%cIf you don't know what you're doing and are just copy-pasting, close this window.\nAnyone who told you to copy-paste here to make the dashboard \"better\" is trying to hack your Discord account and servers.", "font-size: 25px; font-family: sans-serif;")
+    </script>
+
     <link href="{{ url_for('static', filename='favicon.ico') }}" rel="shortcut icon" type="image/x-icon">
 </head>
 
@@ -64,8 +74,10 @@
     {% endwith %}
     {% block content %}{% endblock %}
 </main>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

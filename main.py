@@ -169,6 +169,12 @@ def edit_guild():  # sourcery no-metrics skip
         flash("You don't have permission to manage that server.")
         return redirect(url_for("servers_list"))
 
+    currguild = []
+
+    for server in servers:
+        if server["id"] == str(guild):
+            currguild.append(server)
+
     if request.method == "POST":
         prefix = request.form["pfx"]
         pfx_warn = 'on' if 'pfx-warn' in request.form else 'off'
@@ -182,7 +188,7 @@ def edit_guild():  # sourcery no-metrics skip
 
             if prefix in ["", " "]:
                 flash("That prefix contains an invalid character.", "danger")
-                return render_template('dashboard/form.html', config=config, pwc=pwc)
+                return render_template('dashboard/form.html', config=config, currguild=currguild[0], pwc=pwc, atc=atc, awc=awc)
 
             with con:
                 cur.execute('UPDATE config SET prefix = :prefix WHERE id = :id', {
@@ -236,12 +242,6 @@ def edit_guild():  # sourcery no-metrics skip
             awc = True if config[3] == "ON" else False
 
         flash("All Changes Saved.", "success")
-
-    currguild = []
-
-    for server in servers:
-        if server["id"] == str(guild):
-            currguild.append(server)
 
     return render_template('dashboard/form.html', config=config, currguild=currguild[0], pwc=pwc, atc=atc, awc=awc)
 
