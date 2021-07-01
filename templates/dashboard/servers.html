@@ -10,8 +10,13 @@
 <div class="my-5">
     <div class="overflow-hidden">
         <div class="">
+            {% if user['gif'] %}
             <img src="https://cdn.discordapp.com/avatars/{{ user['id'] }}/{{ user['avatar'] }}.gif?size=128"
-                class="img-fluid rounded-circle shadow-lg mb-4" alt="Avatar" loading="lazy">
+            class="img-fluid rounded-circle shadow-lg mb-4" alt="Avatar" loading="lazy">
+            {% else %}
+            <img src="https://cdn.discordapp.com/avatars/{{ user['id'] }}/{{ user['avatar'] }}.webp?size=128"
+            class="img-fluid rounded-circle shadow-lg mb-4" alt="Avatar" loading="lazy">
+            {% endif %}
         </div>
     </div>
     <h1 class="display-4 fw-bold text-white">Hello, {{ user['username'] }}!</h1>
@@ -25,7 +30,6 @@
     <br>
     <div class="container" id="container1">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
-
             {% for server in servers %}
             <div class="col">
                 <div class="card shadow-sm" style="background-color: rgba(0, 0, 0, 0.05);">
@@ -34,69 +38,78 @@
                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
                         preserveaspectratio="xMidYMid slice" focusable="false">
                     {% else %}
-                    <img src="https://discord.com/assets/3437c10597c1526c3dbd98c737c2bcae.svg" alt="server icon"
-                        class="bd-placeholder-img card-img-top" xmlns="http://www.w3.org/2000/svg" role="img"
-                        aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" width="512"
-                        height="304" focusable="false">
+                    <div style="position: relative; text-align: center; color: white; font-size: 36px; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                        <img src="https://cdn.discordapp.com/attachments/713675042143076356/860182913470824468/unknown.png"
+                            alt="" class="bd-placeholder-img card-img-top" style="width:100%;"
+                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                            preserveaspectratio="xMidYMid slice" focusable="false">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            {{ server['initials'] }}
+                        </div>
+                    </div>
                     {% endif %}
 
 
                     <div class="card-body">
                         <p class="card-text">{{ server['name'] }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="/dashboard/edit?server={{ server['id'] }}">
-                                    <button class="btn btn-success"><i class="bi bi-pencil"></i> Edit</button>
-                                </a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="/dashboard/edit?server={{ server['id'] }}">
+                                        <button class="btn btn-success"><i class="bi bi-pencil"></i> Edit</button>
+                                    </a>
+                                </div>
+                                <small class="not-muted-link" style="visibility: visible;">{{ server['id'] }}</small>
                             </div>
-                            <small class="not-muted-link" style="visibility: visible;">{{ server['id'] }}</small>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            <br>
         </div>
         <br>
-    </div>
-    <br>
-    <hr>
-    <br>
-    <h2>You can invite Aeon to these servers</h2>
-    <br>
-    <div class="container" id="container2">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
-
-            {% for server in servers %}
-            <div class="col">
-                <div class="card shadow-sm" style="background-color: rgba(0, 0, 0, 0.05);">
-                    {% if server['url'] %}
-                    <img src="{{ server['url'] }}" alt="server icon" class="bd-placeholder-img card-img-top"
-                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                        preserveaspectratio="xMidYMid slice" focusable="false">
-                    {% else %}
-                    <img src="https://discord.com/assets/3437c10597c1526c3dbd98c737c2bcae.svg" alt="server icon"
-                        class="bd-placeholder-img card-img-top" xmlns="http://www.w3.org/2000/svg" role="img"
-                        aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" width="512"
-                        height="304" focusable="false">
-                    {% endif %}
-
-
-                    <div class="card-body">
-                        <p class="card-text">{{ server['name'] }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="/dashboard/edit?server={{ server['id'] }}">
-                                    <button class="btn btn-success"><i class="bi bi-pencil"></i> Edit</button>
-                                </a>
+        <hr>
+        <br>
+        <h2>You can invite Aeon to these servers</h2>
+        <br>
+        <div class="container" id="container2">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+                {% for server in invite %}
+                <div class="col">
+                    <div class="card shadow-sm" style="background-color: rgba(0, 0, 0, 0.05);">
+                        {% if server['url'] %}
+                        <img src="{{ server['url'] }}" alt="server icon" class="bd-placeholder-img card-img-top"
+                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                            preserveaspectratio="xMidYMid slice" focusable="false">
+                        {% else %}
+                            <div style="position: relative; text-align: center; color: white; font-size: 36px; text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                                <img src="https://cdn.discordapp.com/attachments/713675042143076356/860182913470824468/unknown.png"
+                                    alt="" class="bd-placeholder-img card-img-top" style="width:100%;"
+                                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                    preserveaspectratio="xMidYMid slice" focusable="false">
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                    {{ server['initials'] }}
+                                </div>
                             </div>
-                            <small class="not-muted-link" style="visibility: visible;">{{ server['id'] }}</small>
+                        {% endif %}
+
+
+                        <div class="card-body">
+                            <p class="card-text">{{ server['name'] }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="/dashboard/edit?server={{ server['id'] }}">
+                                        <button class="btn btn-success"><i class="bi bi-person-plus"></i> Add</button>
+                                    </a>
+                                </div>
+                                <small class="not-muted-link" style="visibility: visible;">{{ server['id'] }}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            <br>
         </div>
-        <br>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}

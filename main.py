@@ -65,6 +65,9 @@ def servers_list():
     user = discord.get('https://discord.com/api/v7/users/@me')
     guilds = discord.get('https://discord.com/api/v7/users/@me/guilds')
 
+    userd = user.json()
+    userd['gif'] = True if userd['avatar'].endswith("_a") else False
+
     with con:
         cur.execute('SELECT id FROM config')
         current_aeon_guilds = cur.fetchall()
@@ -75,13 +78,23 @@ def servers_list():
 
     for guild in guilds.json():
         def append(list):
-            list.append(
-                    {
-                        'name': guild['name'],
-                        'id': guild['id'],
-                        'url': f'https://cdn.discordapp.com/icons/{guild["id"]}/{guild["icon"]}.webp?size=256' if guild["icon"] else None
-                    }
-            )
+            gdict = {
+                'name': guild['name'],
+                'id': guild['id'],
+            }
+
+            if guild['icon']:
+                gdict['url'] = f'https://cdn.discordapp.com/icons/{guild["id"]}/{guild["icon"]}.{"gif" if guild["icon"].endswith("_a") else "webp"}?size=256'
+            else:
+                initials = []
+
+                for word in guild['name'].split(' '):
+                    initials.append(word[0])
+
+                gdict['initials'] = ''.join(initials)
+
+            list.append(gdict)
+
         if guild['permissions'] == 8 or guild['owner'] is True:
             if int(guild['id']) in ids:
                 append(servers)
@@ -92,7 +105,7 @@ def servers_list():
     invite.sort(key=lambda x: x['name'].lower())
     return render_template(
         "dashboard/servers.html",
-        user=user.json(), servers=servers, invite=invite, count=[len(invite) + len(servers), len(servers)])
+        user=userd, servers=servers, invite=invite, count=[len(invite) + len(servers), len(servers)])
 
 
 @app.route('/dashboard/edit/', methods=["GET", "POST"])
@@ -146,11 +159,11 @@ def edit_guild():  # sourcery no-metrics skip
     for _guild in guilds.json():
         def append(list):
             list.append(
-                    {
-                        'name': _guild['name'],
-                        'id': _guild['id'],
-                        'url': f'https://cdn.discordapp.com/icons/{_guild["id"]}/{_guild["icon"]}.webp?size=256' if _guild["icon"] else None
-                    }
+                {
+                    'name': _guild['name'],
+                    'id': _guild['id'],
+                    'url': f'https://cdn.discordapp.com/icons/{_guild["id"]}/{_guild["icon"]}.webp?size=256' if _guild["icon"] else None
+                }
             )
 
         if _guild['permissions'] == 8 or _guild['owner'] is True:
@@ -184,7 +197,8 @@ def edit_guild():  # sourcery no-metrics skip
         as_wc = 'on' if "as-wc" in request.form else 'off'
 
         if prefix:
-            prefix = prefix.replace('"', "").replace("{s}", " ").replace("`", "").replace("﷽", "").replace("'", "")
+            prefix = prefix.replace('"', "").replace("{s}", " ").replace(
+                "`", "").replace("﷽", "").replace("'", "")
 
             if prefix in ["", " "]:
                 flash("That prefix contains an invalid character.", "danger")
