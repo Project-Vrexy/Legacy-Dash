@@ -95,7 +95,7 @@ def servers_list():
 
             list.append(gdict)
 
-        if guild['permissions'] == 8 or guild['owner'] is True:
+        if (int(guild['permissions']) & 0x8) == 0x8 or guild['owner'] is True:
             if int(guild['id']) in ids:
                 append(servers)
             else:
@@ -166,7 +166,7 @@ def edit_guild():  # sourcery no-metrics skip
                 }
             )
 
-        if _guild['permissions'] == 8 or _guild['owner'] is True:
+        if (int(_guild['permissions']) & 0x8) == 0x8 or _guild['owner'] is True:
             if int(_guild['id']) in ids:
                 append(servers)
                 server_ids.append(_guild['id'])
