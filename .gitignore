@@ -9,7 +9,7 @@
 # User Stuff
 .idea/
 
-# Chache
+# Cache
 */__pycache__
 */__pycache__/*
 *.pyc
