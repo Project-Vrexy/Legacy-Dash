@@ -16,7 +16,7 @@ app.secret_key = os.getenv("FLASK_DANCE_SECRET")
 
 blueprint = make_discord_blueprint(
     client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('CLIENT_SECRET'), scope=["identify", "guilds"],
-    redirect_url="http://127.0.0.1:5000/login/dashboard/authexit", authorized_url="/dashboard/authexit",
+        redirect_url=f"{os.getenv('ROOT_URI')}/login/authorized", authorized_url="/authorized",
 )
 
 app.register_blueprint(blueprint, url_prefix="/login")
