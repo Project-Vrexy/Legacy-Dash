@@ -1,5 +1,4 @@
 import os
-import sys
 import sqlite3
 import re
 
@@ -10,7 +9,6 @@ from oauthlib import oauth2
 from dotenv import load_dotenv
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-sys.setrecursionlimit(10000)
 
 load_dotenv('.env')
 app = Flask(__name__)
