@@ -10,9 +10,9 @@ from dotenv import load_dotenv
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-load_dotenv('.env')
+load_dotenv()
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_DANCE_SECRET")
+app.config["SECRET_KEY"] = os.getenv("FLASK_DANCE_SECRET")
 
 blueprint = make_discord_blueprint(
     client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('CLIENT_SECRET'), scope=["identify", "guilds"],
@@ -279,4 +279,4 @@ def authorization_done(blueprint, token):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=2000)
