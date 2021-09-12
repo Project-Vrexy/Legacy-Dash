@@ -37,7 +37,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="{% block about_css %}{% endblock %}">
-                    <a class="nav-link" href="/about">About</a>
+                    <a class="nav-link" href="#!">About</a>
                 </li>
                 <li>
                     <a class="nav-link" href="/dashboard">Dashboard</a>
@@ -46,11 +46,11 @@
         </div>
         <div class="form-inline my-2 my-lg-0">
             {%if allowed %}
-            <a href="/dashboard/logout">
+            <a href="/dashboard/logout" style="text-decoration:none;">
                 <button class="btn text-white my-2 my-sm-0" style="background-color: rgba(0, 0, 0, 0.10);">Logout</button>
             </a>
             {% else %}
-            <a href="/login/discord">
+            <a href="/login/discord" style="text-decoration:none;">
                 <button class="btn text-secondary my-2 my-sm-0" style="background-color: rgba(0, 0, 0, 0.10);">Login</button>
             </a>
             {% endif %}
