@@ -20,7 +20,8 @@ blueprint = make_discord_blueprint(
 )
 
 app.register_blueprint(blueprint, url_prefix="/login")
-
+with open(f"{os.getenv('BOT_DIR')}json/blocked.json") as f:
+    blocked = json.load(f)["users"]
 
 @app.errorhandler(oauth2.MismatchingStateError)
 def handle_user_cancel(e):
@@ -66,6 +67,9 @@ def servers_list():
     guilds = discord.get('https://discord.com/api/v7/users/@me/guilds')
 
     userd = user.json()
+    if int(userd['id']) in blocked:
+        flash("You are blacklisted from using Aeon Dashboard.", "danger")
+        return render_template("home.html")
     userd['gif'] = True if userd['avatar'].endswith("_a") else False
 
     with con:
@@ -199,11 +203,15 @@ def edit_guild():  # sourcery no-metrics skip
         if prefix:
             prefix = prefix.replace('"', "").replace("{s}", " ").replace(
                 "`", "").replace("﷽", "").replace("'", "")
-
+            
+            if len(prefix) > 15:
+                flash("That prefix is too long!", "danger")
+                return render_template('dashboard/form.html', config=config, currguild=currguild[0], pwc=pwc, atc=atc, awc=awc)
+            
             if prefix in ["", " "]:
                 flash("That prefix contains an invalid character.", "danger")
                 return render_template('dashboard/form.html', config=config, currguild=currguild[0], pwc=pwc, atc=atc, awc=awc)
-
+            
             with con:
                 cur.execute('UPDATE config SET prefix = :prefix WHERE id = :id', {
                     'id': guild,
