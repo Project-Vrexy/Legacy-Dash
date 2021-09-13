@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import re
+import ujson as json
 
 from flask import Flask, render_template, request, redirect, url_for, make_response, flash
 from flask_dance.contrib.discord import make_discord_blueprint, discord
