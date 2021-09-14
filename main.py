@@ -41,6 +41,9 @@ def handle_weird_indices_error(e):
     if e == "list indices must be integers or slices, not str":
         flash("An error occurred rendering your servers, please try again.")
         return render_template("home.html")
+    else:
+        flash("An internal error occurred while trying to process your request, please try again.")
+        return render_template("home.html")
 
 
 @app.route("/")
@@ -118,6 +121,11 @@ def edit_guild():  # sourcery no-metrics skip
     global display_guild
     if not discord.authorized:
         return redirect(url_for("discord.login"))
+    
+    uid = discord.get('https://discord.com/api/v7/users/@me').json()['id']
+    if int(uid) in blocked:
+        flash("You are blacklisted from using Aeon Dashboard.", "danger")
+        return render_template("home.html")
 
     guild = request.args.get('server')
     if not guild:
