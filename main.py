@@ -39,10 +39,10 @@ def handle_404(e):
 @app.errorhandler(TypeError)
 def handle_weird_indices_error(e):
     if e == "list indices must be integers or slices, not str":
-        flash("An error occurred rendering your servers, please try again.")
+        flash("An error occurred rendering your servers, please try again.", "warning")
         return render_template("home.html")
     else:
-        flash("An internal error occurred while trying to process your request, please try again.")
+        flash("An internal error occurred while trying to process your request, please try again.", "warning")
         return render_template("home.html")
 
 
@@ -189,10 +189,10 @@ def edit_guild():  # sourcery no-metrics skip
 
     if str(guild) not in server_ids:
         if str(guild) in invite_ids:
-            flash("Aeon is not in that server.")
+            flash("Aeon is not in that server.", "warning")
             return redirect(url_for("servers_list"))
 
-        flash("You don't have permission to manage that server.")
+        flash("You don't have permission to manage that server.", "warning")
         return redirect(url_for("servers_list"))
 
     currguild = []
