@@ -28,6 +28,14 @@ with open(f"{os.getenv('BOT_DIR')}json/blocked.json") as f:
 def handle_user_cancel(e):
     return redirect(url_for("home"))
 
+@app.errorhandler(oauth2.TokenExpiredError)
+def handle_expired_token(e):
+    flash("Your token has expired. Please log in again.", "warning")
+    del blueprint.token
+    resp = make_response(redirect(url_for('home')))
+    resp.delete_cookie('session')
+    
+    return resp
 
 @app.errorhandler(404)
 def handle_404(e):
@@ -282,7 +290,8 @@ def logout():
     if not discord.authorized:
         flash("You need to be logged in to log out.", "warning")
         return redirect(url_for('home'))
-
+    
+    del blueprint.token
     resp = make_response(redirect(url_for('home')))
     resp.delete_cookie('session')
 
