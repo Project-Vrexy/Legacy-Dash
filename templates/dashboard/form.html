@@ -19,59 +19,21 @@
     </div>
 </div>
 
-<form method="post" action="#" class="form-group">
-    <h2 class="text-white" id="section-prefix">Prefix</h2>
-    <p>The word the bot will use to listen out for commands.<br />Add <b>{s}</b> at the end to add spaces.</p>
-
-    <input name="pfx" type="text" value="{{ 'a!' if not config[5] else config[5] }}" placeholder="{{ 'a!' if not config[5] else config[5] }}" class="form-control bg-dark text-white border border-success"/>
-
-    <br />
-    <p>Default Prefix: <b>a!</b></p>
-
-    <h3 class="text-white">Prefix Warn</h3>
-    <p>This will display a warning when a user attempts to use the default prefix.</p>
-    <div class="form-group form-check">
-        {% if pwc %}
-        <input type="checkbox" class="form-check-input" name="pfx-warn" id="check1" value="" checked>
-        {% else %}
-        <input type="checkbox" class="form-check-input" name="pfx-warn" value="" id="check1">
-        {% endif %}
-        <label class="form-check-label" for="check1">Prefix Warn</label>
+<div class="d-flex flex-row bd-highlight mb-3 d-flex justify-content-around">
+    <div id="list-example" class="list-group flex-fill m-3">
+        <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2">Item 2</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
     </div>
+    
+    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0"
+    class="scrollspy-example flex-fill" tabindex="0">
 
-    <hr>
-    <h2 class="text-white" id="section-as">Anti-Swear Filter</h2>
-    <p>Aeon's Anti-Swear Filter helps protect your server from bad words.</p>
-    <div class="form-group form-check">
-        {% if atc %}
-        <input type="checkbox" class="form-check-input" name="as-toggle" value="" checked>
-        {% else %}
-        <input type="checkbox" class="form-check-input" name="as-toggle" value="">
-        {% endif %}
-        <label class="form-check-label">Use Anti Swear Filter</label>
+        <form method="post" action="#" class="form-group">
+            <button class="btn btn-success text-white" type="submit"><i class="bi bi-save"></i> Save changes</button>
+            <!--    <input type="submit" class="btn btn-success">-->
+        </form>
     </div>
-    {% if atc %}
-        <br>
-    <h3 class="text-white">Blocklist</h3>
-    <textarea name="as-words" placeholder="{{ 'Please add some words to block.' if not config[1] else config[1] }}" class="form-control bg-dark text-white border border-success"></textarea>
-    <br />
-    <p><b>Current Words</b></p>
-    <textarea readonly class="form-control text-white bg-dark border-dark">{{ 'You have no blocked words.' if not config[1] else config[1] }}</textarea>
-    <br>
-    <h3 class="text-white">Wildcard</h3>
-    <p>The wildcard removes messages that contain words <b>similar</b> to words in your blocklist.</p>
-    <div class="form-group form-check">
-        {% if awc %}
-        <input type="checkbox" class="form-check-input" name="as-wc" value="" checked>
-        {% else %}
-        <input type="checkbox" class="form-check-input" name="as-wc" value="">
-        {% endif %}
-        <label class="form-check-label">Use Wildcard</label>
-    </div>
-    {% endif %}
-
-    <hr>
-    <button class="btn btn-success text-white" type="submit"><i class="bi bi-save"></i> Save changes</button>
-<!--    <input type="submit" class="btn btn-success">-->
-</form>
+</div>
 {% endblock %}
