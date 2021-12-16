@@ -6,18 +6,20 @@
 {% block seo_title %}Aeon Dashboard | Edit Server{% endblock %}
 
 {% block content %}
-<div class="my-5">
-    <div class="overflow-hidden">
-        <div class="">
-            <img src="{{ currguild['url'] }}" class="img-fluid rounded-circle shadow-lg mb-4" alt="Avatar" loading="lazy" height="128" width="128">
+    <div class="my-5">
+        <div class="overflow-hidden">
+            <div class="">
+                <img src="https://cdn.discordapp.com/icons/822380069129289749/40f5b3d4da85df1850e14fa2cd4db21f.webp?size=256"
+                    class="img-fluid rounded-circle shadow-lg mb-4" alt="Avatar" loading="lazy" height="128"
+                    width="128">
+            </div>
+        </div>
+        <h5 class="text-uppercase not-muted-link">currently editing</h5>
+        <h1 class="display-4 fw-bold text-white lead">Aeon Support</h1>
+        <div class="col-lg-6">
+            <p class="mb-4 not-muted-link">822380069129289749</p>
         </div>
     </div>
-    <h5 class="text-uppercase not-muted-link">currently editing</h5>
-    <h1 class="display-4 fw-bold text-white lead">{{ currguild['name'] }}</h1>
-    <div class="col-lg-6">
-        <p class="mb-4 not-muted-link">{{ currguild['id'] }}</p>
-    </div>
-</div>
 
 <div class="d-flex flex-row bd-highlight mb-3 d-flex justify-content-around">
     <div id="list-example" class="list-group flex-fill m-3">
@@ -26,12 +28,12 @@
         <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
         <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
     </div>
-    
-    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0"
-    class="scrollspy-example flex-fill" tabindex="0">
 
-        <form method="post" action="#" class="form-group">
-            <button class="btn btn-success text-white" type="submit"><i class="bi bi-save"></i> Save changes</button>
+
+    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0"
+        class="scrollspy-example flex-fill" tabindex="0">
+            <button class="btn btn-success text-white" type="submit"><i class="bi bi-save"></i> Save
+                changes</button>
             <!--    <input type="submit" class="btn btn-success">-->
         </form>
     </div>

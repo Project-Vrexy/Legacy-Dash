@@ -17,16 +17,18 @@ app.config["SECRET_KEY"] = os.getenv("FLASK_DANCE_SECRET")
 
 blueprint = make_discord_blueprint(
     client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('CLIENT_SECRET'), scope=["identify", "guilds"],
-        redirect_url=f"{os.getenv('ROOT_URI')}/login/authorized", authorized_url="/authorized",
+    redirect_url=f"{os.getenv('ROOT_URI')}/login/authorized", authorized_url="/authorized",
 )
 
 app.register_blueprint(blueprint, url_prefix="/login")
 with open(f"{os.getenv('BOT_DIR')}json/blocked.json") as f:
     blocked = json.load(f)["users"]
 
+
 @app.errorhandler(oauth2.MismatchingStateError)
 def handle_user_cancel(e):
     return redirect(url_for("home"))
+
 
 @app.errorhandler(oauth2.TokenExpiredError)
 def handle_expired_token(e):
@@ -34,8 +36,9 @@ def handle_expired_token(e):
     del blueprint.token
     resp = make_response(redirect(url_for('home')))
     resp.delete_cookie('session')
-    
+
     return resp
+
 
 @app.errorhandler(404)
 def handle_404(e):
@@ -126,10 +129,9 @@ def servers_list():
 
 @app.route('/dashboard/edit/', methods=["GET", "POST"])
 def edit_guild():  # sourcery no-metrics skip
-    global display_guild
     if not discord.authorized:
         return redirect(url_for("discord.login"))
-    
+
     uid = discord.get('https://discord.com/api/v7/users/@me').json()['id']
     if int(uid) in blocked:
         flash("You are blacklisted from using Aeon Dashboard.", "danger")
@@ -206,76 +208,6 @@ def edit_guild():  # sourcery no-metrics skip
             currguild.append(server)
 
     if request.method == "POST":
-        prefix = request.form["pfx"]
-        pfx_warn = 'on' if 'pfx-warn' in request.form else 'off'
-
-        as_toggle = 'on' if 'as-toggle' in request.form else 'off'
-        as_words = request.form['as-words'] if 'as-words' in request.form else config[1]
-        as_wc = 'on' if "as-wc" in request.form else 'off'
-
-        if prefix:
-            prefix = prefix.replace('"', "").replace("{s}", " ").replace(
-                "`", "").replace("﷽", "").replace("'", "")
-            
-            if len(prefix) > 15:
-                flash("That prefix is too long!", "danger")
-                return render_template('dashboard/form.html', config=config, currguild=currguild[0], pwc=pwc, atc=atc, awc=awc)
-            
-            if prefix in ["", " "]:
-                flash("That prefix contains an invalid character.", "danger")
-                return render_template('dashboard/form.html', config=config, currguild=currguild[0], pwc=pwc, atc=atc, awc=awc)
-            
-            with con:
-                cur.execute('UPDATE config SET prefix = :prefix WHERE id = :id', {
-                    'id': guild,
-                    'prefix': prefix
-                })
-
-        if pfx_warn:
-            with con:
-                cur.execute('UPDATE config SET prefix_warn = :pw WHERE id = :id', {
-                    'id': guild,
-                    'pw': pfx_warn.upper()
-                })
-
-        if as_toggle:
-            with con:
-                cur.execute('UPDATE config SET delete_swear = :pw WHERE id = :id', {
-                    'id': guild,
-                    'pw': as_toggle.upper()
-                })
-
-        if as_words:
-            with con:
-                if as_words == "reset":
-                    cur.execute('UPDATE config SET swears = :swears WHERE :id = id', {
-                        'id': guild,
-                        'swears': None
-                    })
-                else:
-                    cur.execute('UPDATE config SET swears = :swears WHERE :id = id', {
-                        'id': guild,
-                        'swears': as_words.replace(" ", ", ")
-                    })
-
-        if as_wc:
-            with con:
-                cur.execute('UPDATE config SET wildcard = :as_wc WHERE :id = id', {
-                    'id': guild,
-                    'as_wc': as_wc.upper()
-                })
-
-        with con:
-            cur.execute('SELECT * FROM config WHERE id = :id', {'id': guild})
-            tuple = cur.fetchone()
-
-            config = [item for item in tuple]
-            config.pop(0)
-
-            pwc = True if config[6] == "ON" else False
-            atc = True if config[0] == "ON" else False
-            awc = True if config[3] == "ON" else False
-
         flash("All Changes Saved.", "success")
 
     return render_template('dashboard/form.html', currguild=currguild[0])
@@ -286,7 +218,7 @@ def logout():
     if not discord.authorized:
         flash("You need to be logged in to log out.", "warning")
         return redirect(url_for('home'))
-    
+
     del blueprint.token
     resp = make_response(redirect(url_for('home')))
     resp.delete_cookie('session')
