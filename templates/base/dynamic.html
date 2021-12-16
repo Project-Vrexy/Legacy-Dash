@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css') }}">
+    <link href="{{ url_for('static', filename='favicon.ico') }}" rel="shortcut icon" type="image/x-icon">
+    <meta content="Aeon, the Discord bot" property="og:title" />
+    <meta content="A multi-purpose bot that does stuff like memes, tags, reminders, and anti-swear filtering." property="og:description" />
+    <meta content="https://aeonbot.xyz/" property="og:url" />
+    <meta content="https://cdn.discordapp.com/avatars/636991807862997000/60e5421f0f18a42c21afab936b8af43f.webp?size=512" property="og:image" />
+    <meta content="#2ecc71" data-react-helmet="true" name="theme-color" />
     <script>
         function topFunction() {
             document.body.scrollTop = 0;
@@ -42,7 +48,7 @@
     <title>{% block seo_title %}{% endblock %}</title>
 </head>
 
-<body class="bg-dark text-white" style="color: #ffffff !important;">
+<body class="bg-dark text-white" style="color: #ffffff !important; height: 100vh;">
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0, 0, 0, 0.05);">
         <div class="container">
             <a class="navbar-brand" href="/">
@@ -63,20 +69,10 @@
                     <li class="nav-item">
                         <a class="{% block servers_css %}{% endblock %}" href="/dashboard/servers">Servers</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="{% block edit_status %}{% endblock %}" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Jump to
-                        </a>
-                        <div class="dropdown-menu bg-dark border-dark" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item text-white" href="#section-prefix">Prefix</a>
-                            <a class="dropdown-item text-white" href="#section-as">Anti-Swear Filter</a>
-                        </div>
-                    </li>
                 </ul>
             </div>
             <div class="form-inline my-2 my-lg-0">
-                <a href="/dashboard/logout">
+                <a href="/dashboard/logout" style="text-decoration: none;">
                     <button class="btn text-white my-2 my-sm-0" style="background-color: rgba(0, 0, 0, 0.10);">Logout
                     </button>
                 </a>
@@ -109,7 +105,7 @@
     <footer class="text-center text-white" style="background-color: rgba(0, 0, 0, 0.2);">
         <div class="container p-4">
             <section class="">
-                <div class="row">
+                <div class="row" style="display:grid;grid-template-columns:repeat(3, 1fr);place-items:center">
                     <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                         <h5 class="text-uppercase text-white text-left">Info</h5>
 
@@ -118,10 +114,10 @@
                                 <a href="/" class="dark-muted text-left">Home</a>
                             </li>
                             <li>
-                                <a href="/about" class="dark-muted">About</a>
+                                <a href="#!" class="dark-muted">About</a>
                             </li>
                             <li>
-                                <a href="/features" class="dark-muted">Features</a>
+                                <a href="#!" class="dark-muted">Features</a>
                             </li>
                         </ul>
                     </div>
@@ -142,24 +138,6 @@
                     <!--                            </li>-->
                     <!--                        </ul>-->
                     <!--                    </div>-->
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                        <h5 class="text-uppercase text-white">Legal</h5>
-
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a href="#!" class="dark-muted">Link 1</a>
-                            </li>
-                            <li>
-                                <a href="#!" class="dark-muted">Link 2</a>
-                            </li>
-                            <li>
-                                <a href="#!" class="dark-muted">Link 3</a>
-                            </li>
-                            <li>
-                                <a href="#!" class="dark-muted">Link 4</a>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                         <h5 class="text-uppercase text-white">Links</h5>
 

@@ -8,7 +8,12 @@
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 
     <title>{% block seo_title %}{% endblock %}</title>
-
+    <meta content="Aeon, the Discord bot" property="og:title" />
+    <meta content="A multi-purpose bot that does stuff like memes, tags, reminders, and anti-swear filtering." property="og:description" />
+    <meta content="https://aeonbot.xyz/" property="og:url" />
+    <meta content="https://cdn.discordapp.com/avatars/636991807862997000/60e5421f0f18a42c21afab936b8af43f.webp?size=512" property="og:image" />
+    <meta content="#2ecc71" data-react-helmet="true" name="theme-color" />
+    
     <script>
         function topFunction() {
             document.body.scrollTop = 0;
@@ -22,7 +27,7 @@
     <link href="{{ url_for('static', filename='favicon.ico') }}" rel="shortcut icon" type="image/x-icon">
 </head>
 
-<body class="bg-dark text-white">
+<body class="bg-dark text-white" style="height: 100vh;">
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0, 0, 0, 0.05);">
     <div class="container">
         <a class="navbar-brand" href="/">
@@ -37,7 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="{% block about_css %}{% endblock %}">
-                    <a class="nav-link" href="/about">About</a>
+                    <a class="nav-link" href="#!">About</a>
                 </li>
                 <li>
                     <a class="nav-link" href="/dashboard">Dashboard</a>
@@ -46,11 +51,11 @@
         </div>
         <div class="form-inline my-2 my-lg-0">
             {%if allowed %}
-            <a href="/dashboard/logout">
+            <a href="/dashboard/logout" style="text-decoration:none;">
                 <button class="btn text-white my-2 my-sm-0" style="background-color: rgba(0, 0, 0, 0.10);">Logout</button>
             </a>
             {% else %}
-            <a href="/login/discord">
+            <a href="/login/discord" style="text-decoration:none;">
                 <button class="btn text-secondary my-2 my-sm-0" style="background-color: rgba(0, 0, 0, 0.10);">Login</button>
             </a>
             {% endif %}
