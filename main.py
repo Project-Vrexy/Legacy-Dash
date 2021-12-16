@@ -21,8 +21,8 @@ blueprint = make_discord_blueprint(
 )
 
 app.register_blueprint(blueprint, url_prefix="/login")
-with open(f"{os.getenv('BOT_DIR')}json/blocked.json") as f:
-    blocked = json.load(f)["users"]
+# with open(f"{os.getenv('DATA_PATH')}blocked.json") as f:
+#     blocked = json.load(f)["users"]
 
 
 @app.errorhandler(oauth2.MismatchingStateError)
@@ -75,16 +75,16 @@ def servers_list():
     if not discord.authorized:
         return redirect(url_for("discord.login"))
 
-    con = sqlite3.connect(os.getenv('DB_PATH'))
+    con = sqlite3.connect(f'{os.getenv("DATA_PATH")}\config.sqlite3')
     cur = con.cursor()
 
     user = discord.get('https://discord.com/api/v7/users/@me')
     guilds = discord.get('https://discord.com/api/v7/users/@me/guilds')
 
     userd = user.json()
-    if int(userd['id']) in blocked:
-        flash("You are blacklisted from using Aeon Dashboard.", "danger")
-        return render_template("home.html")
+    # if int(userd['id']) in blocked:
+    #     flash("You are blacklisted from using Aeon Dashboard.", "danger")
+    #     return render_template("home.html")
     userd['gif'] = True if userd['avatar'].endswith("_a") else False
 
     with con:
@@ -127,20 +127,16 @@ def servers_list():
         user=userd, servers=servers, invite=invite, count=[len(invite) + len(servers), len(servers)])
 
 
-@app.route('/dashboard/edit/', methods=["GET", "POST"])
-def edit_guild():  # sourcery no-metrics skip
+@app.route('/dashboard/<guild>/', methods=["GET", "POST"])
+def edit_guild(guild):  # sourcery no-metrics skip
     if not discord.authorized:
         return redirect(url_for("discord.login"))
 
     uid = discord.get('https://discord.com/api/v7/users/@me').json()['id']
-    if int(uid) in blocked:
-        flash("You are blacklisted from using Aeon Dashboard.", "danger")
-        return render_template("home.html")
+    # if int(uid) in blocked:
+    #     flash("You are blacklisted from using Aeon Dashboard.", "danger")
+    #     return render_template("home.html")
 
-    guild = request.args.get('server')
-    if not guild:
-        flash("You need to provide a server ID.", "danger")
-        return redirect(url_for("servers_list"))
     re.sub("[^0-9]", "", guild)
 
     if len(guild) != 18:
@@ -148,7 +144,7 @@ def edit_guild():  # sourcery no-metrics skip
             flash("You need to provide a server ID.", "danger")
             return redirect(url_for("servers_list"))
 
-    con = sqlite3.connect(os.getenv('DB_PATH'))
+    con = sqlite3.connect(f'{os.getenv("DATA_PATH")}\\config.sqlite3')
     cur = con.cursor()
 
     with con:
@@ -216,7 +212,7 @@ def edit_guild():  # sourcery no-metrics skip
 @app.route("/dashboard/logout/")
 def logout():
     if not discord.authorized:
-        flash("You need to be logged in to log out.", "warning")
+        flash("We thought this couldn't be more obvious, but you need to be logged in to log out.", "warning")
         return redirect(url_for('home'))
 
     del blueprint.token
@@ -233,4 +229,4 @@ def authorization_done(blueprint, token):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=2000)
+    app.run(debug=True)
