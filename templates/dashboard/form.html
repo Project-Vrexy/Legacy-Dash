@@ -9,15 +9,15 @@
     <div class="my-5">
         <div class="overflow-hidden">
             <div class="">
-                <img src="https://cdn.discordapp.com/icons/822380069129289749/40f5b3d4da85df1850e14fa2cd4db21f.webp?size=256"
+                <img src="{{ currguild['url'] }}"
                     class="img-fluid rounded-circle shadow-lg mb-4" alt="Avatar" loading="lazy" height="128"
                     width="128">
             </div>
         </div>
         <h5 class="text-uppercase not-muted-link">currently editing</h5>
-        <h1 class="display-4 fw-bold text-white lead">Aeon Support</h1>
+        <h1 class="display-4 fw-bold text-white lead">{{ currguild['name'] }}</h1>
         <div class="col-lg-6">
-            <p class="mb-4 not-muted-link">822380069129289749</p>
+            <p class="mb-4 not-muted-link">{{ currguild['id'] }}</p>
         </div>
     </div>
 
